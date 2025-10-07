@@ -1,0 +1,25 @@
+{
+  "name": "codeatlas-rag",
+  "displayName": "CodeAtlas RAG",
+  "publisher": "you",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.86.0"
+  },
+  "activationEvents": [
+    "onCommand:codeatlas.ask"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "codeatlas.ask",
+        "title": "CodeAtlas: Ask about code"
+      }
+    ]
+  },
+  "main": "./extension.js",
+  "categories": [
+    "Other"
+  ],
+  "dependencies": {}
+}
