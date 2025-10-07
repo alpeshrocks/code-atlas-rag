@@ -1,0 +1,16 @@
+[
+  {
+    "question": "Where is database pooling configured?",
+    "gold_paths": [
+      "infra/db/pool.py",
+      "db/pool.ts"
+    ]
+  },
+  {
+    "question": "How is auth token verified?",
+    "gold_paths": [
+      "auth/middleware.py",
+      "src/auth.ts"
+    ]
+  }
+]
