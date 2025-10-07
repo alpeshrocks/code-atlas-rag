@@ -1,0 +1,57 @@
+
+version: "3.9"
+services:
+  postgres:
+    image: ankane/pgvector:latest
+    environment:
+      POSTGRES_USER: rag
+      POSTGRES_PASSWORD: ragpass
+      POSTGRES_DB: ragdb
+    ports: ["5432:5432"]
+  opensearch:
+    image: opensearchproject/opensearch:2.11.1
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+    ports: ["9200:9200","9600:9600"]
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+  neo4j:
+    image: neo4j:5-community
+    environment:
+      - NEO4J_AUTH=neo4j/test
+    ports: ["7474:7474","7687:7687"]
+  ingestion:
+    build: ./services/ingestion
+    environment:
+      - DATABASE_URL=postgresql://rag:ragpass@postgres:5432/ragdb
+      - OPENSEARCH_URL=http://opensearch:9200
+    depends_on: [postgres, opensearch]
+    ports: ["7010:7010"]
+  retriever:
+    build: ./services/retriever
+    environment:
+      - DATABASE_URL=postgresql://rag:ragpass@postgres:5432/ragdb
+      - OPENSEARCH_URL=http://opensearch:9200
+    depends_on: [postgres, opensearch]
+    ports: ["7020:7020"]
+  reranker:
+    build: ./services/reranker
+    ports: ["7030:7030"]
+  llm-proxy:
+    build: ./services/llm-proxy
+    ports: ["7040:7040"]
+  agents:
+    build: ./services/agents
+    depends_on: [retriever, llm-proxy]
+    ports: ["7050:7050"]
+  api-gateway:
+    build: ./services/api-gateway
+    depends_on: [retriever, reranker, llm-proxy, agents]
+    ports: ["8080:8080"]
+  web:
+    build: ./apps/web
+    depends_on: [api-gateway]
+    ports: ["3000:3000"]
