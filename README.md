@@ -118,18 +118,6 @@ data/eval/            # Sample eval cases
 
 ---
 
-## 📜 License
-This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
-
----
-
-## 💼 Why this is resume-worthy
-- Demonstrates **end-to-end systems design** (ingestion → indexing → retrieval → rerank → LLM → agents → UI).
-- Shows **data/AI engineering + SWE** in one cohesive platform.
-- Emphasizes **practical developer impact** (bug localization, refactoring, testing).
-- Uses **industry-standard tooling** (Docker, FastAPI, Next.js, pgvector, OpenSearch).
-- Clear roadmap and contributor docs imply **maintainability and leadership**.
----
 
 ## 👤 Author
 
@@ -142,4 +130,4 @@ This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for d
 ---
 
 ## 📜 License
-This project is licensed under the MIT License — free to use and adapt.
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
